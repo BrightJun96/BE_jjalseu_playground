@@ -33,7 +33,7 @@ public class QuizEntity {
     @Comment("문제타입")
     private String type;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     @Comment("힌트")
     private String hint;
 
