@@ -41,6 +41,5 @@ jobs:
 
       - name: Check 8080 port
         run: |
-          ssh -o StrictHostKeyChecking=no -i enjoyjjalseu.pem ubuntu@ec2-3-39-228-240.ap-northeast-2.compute.amazonaws.com << 'EOF'
-          sudo ss -tuln | grep 8080
-          EOF
+          ssh -T -o StrictHostKeyChecking=no -i enjoyjjalseu.pem ubuntu@ec2-3-39-228-240.ap-northeast-2.compute.amazonaws.com "sudo ss -tuln | grep 8080"
+
