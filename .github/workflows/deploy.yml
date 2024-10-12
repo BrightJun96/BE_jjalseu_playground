@@ -24,15 +24,6 @@ jobs:
       - name: Build without tests
         run: ./gradlew build -x test
 
-
-      - name: Install SSH key
-        run: |
-          echo "${{ secrets.EC2_KEY }}" | tr -d '\r' > enjoyjjalseu.pem
-          chmod 400 enjoyjjalseu.pem
-
-      - name: Verify SSH key creation
-        run: ls -l enjoyjjalseu.pem
-
       - name: Deploy to EC2
         uses: appleboy/scp-action@v0.1.0
         with:
@@ -41,3 +32,13 @@ jobs:
           key: ${{ secrets.EC2_KEY }}
           source: "build/libs/BE_playground-0.0.1-SNAPSHOT.jar"
           target: "/home/ubuntu/"
+
+      - name: Start application on EC2
+        uses: appleboy/ssh-action@v0.1.0
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ubuntu
+          key: ${{ secrets.EC2_KEY }}
+          script: |
+            pkill -f 'java -jar' || true
+            nohup java -jar /home/ubuntu/BE_playground-0.0.1-SNAPSHOT.jar > /dev/null 2>&1 &
