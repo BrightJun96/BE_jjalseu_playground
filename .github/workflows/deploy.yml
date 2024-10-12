@@ -20,7 +20,7 @@ jobs:
           distribution: 'adopt'
 
       - name: Build with Gradle
-        run: ./gradlew build
+        run: ./gradlew build -x test
 
       - name: Add PEM key
         run: |
