@@ -32,6 +32,7 @@ jobs:
           key: ${{ secrets.EC2_KEY }}
           source: "build/libs/BE_playground-0.0.1-SNAPSHOT.jar"
           target: "/home/ubuntu/"
+          debug: true
 
       - name: Start application on EC2
         uses: appleboy/ssh-action@v0.1.0
