@@ -20,7 +20,8 @@ jobs:
 
       - name: Copy source code to EC2
         run: |
-          scp -o StrictHostKeyChecking=no -i enjoyjjalseu.pem -r ./ ubuntu@ec2-3-39-228-240.ap-northeast-2.compute.amazonaws.com:/home/ubuntu/app/
+          scp -o StrictHostKeyChecking=no -i enjoyjjalseu.pem -r * ubuntu@ec2-3-39-228-240.ap-northeast-2.compute.amazonaws.com:/home/ubuntu/app/
+
 
       - name: Build and deploy on EC2
         run: |
