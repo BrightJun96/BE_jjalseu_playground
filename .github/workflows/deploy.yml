@@ -3,7 +3,7 @@ name: Deploy to EC2
 on:
   push:
     branches:
-      - main
+      - main  # main 브랜치에 푸시할 때 배포 진행
 
 jobs:
   deploy:
@@ -11,35 +11,21 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
-      - name: Set up JDK 21
-        uses: actions/setup-java@v1
-        with:
-          java-version: '21'
+      - name: Add PEM key
+        run: |
+          echo "${{ secrets.EC2_KEY }}" > enjoyjjalseu.pem
+          chmod 400 enjoyjjalseu.pem
 
-      - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
-
-      - name: Build without tests
-        run: ./gradlew build -x test
+      - name: Copy files to EC2
+        run: |
+          scp -o StrictHostKeyChecking=no -i enjoyjjalseu.pem -r ./build/libs/*.jar ubuntu@ec2-3-39-228-240.ap-northeast-2.compute.amazonaws.com:/home/ubuntu/app/
 
       - name: Deploy to EC2
-        uses: appleboy/scp-action@v0.1.0
-        with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ubuntu
-          key: ${{ secrets.EC2_KEY }}
-          source: "build/libs/BE_playground-0.0.1-SNAPSHOT.jar"
-          target: "/home/ubuntu/"
-          debug: true
-
-      - name: Start application on EC2
-        uses: appleboy/ssh-action@v0.1.0
-        with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ubuntu
-          key: ${{ secrets.EC2_KEY }}
-          script: |
-            pkill -f 'java -jar' || true
-            nohup java -jar /home/ubuntu/BE_playground-0.0.1-SNAPSHOT.jar > /dev/null 2>&1 &
+        run: |
+          ssh -o StrictHostKeyChecking=no -i enjoyjjalseu.pem ubuntu@ec2-3-39-228-240.ap-northeast-2.compute.amazonaws.com << 'EOF'
+          cd /home/ubuntu/app
+          pkill -f 'java -jar' || true
+          nohup java -jar *.jar > /dev/null 2>&1 &
+          EOF
