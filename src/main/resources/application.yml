@@ -9,13 +9,9 @@ api:
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://devplayground.ct6c6kaw867t.ap-northeast-2.rds.amazonaws.com:5432/devplayground
-    username: jjalseu
-    password: joyboyjjalseu1115
-
-#    url: ${DB_URL}
-#    username: ${DB_USERNAME}
-#    password: ${DB_PASSWORD}
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
 
   jpa:
     hibernate:
