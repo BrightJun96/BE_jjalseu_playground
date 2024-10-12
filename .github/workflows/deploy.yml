@@ -18,15 +18,11 @@ jobs:
           echo "${{ secrets.EC2_KEY }}" > enjoyjjalseu.pem
           chmod 400 enjoyjjalseu.pem
 
-      - name: Copy source code to EC2
-        run: |
-          scp -o StrictHostKeyChecking=no -i enjoyjjalseu.pem -r * ubuntu@ec2-3-39-228-240.ap-northeast-2.compute.amazonaws.com:/home/ubuntu/app/
-
-
       - name: Build and deploy on EC2
         run: |
           ssh -o StrictHostKeyChecking=no -i enjoyjjalseu.pem ubuntu@ec2-3-39-228-240.ap-northeast-2.compute.amazonaws.com << 'EOF'
-          cd /home/ubuntu/app
+          cd /home/ubuntu/app || mkdir /home/ubuntu/app && cd /home/ubuntu/app
+          git clone https://github.com/BrightJun96/BE_jjalseu_playground.git . || git pull origin main
           ./gradlew build -x test  # Gradle 빌드 실행
           pkill -f 'java -jar' || true  # 기존 애플리케이션 종료
           nohup java -jar build/libs/BE_playground-0.0.1-SNAPSHOT.jar > nohup.out 2>&1 &
