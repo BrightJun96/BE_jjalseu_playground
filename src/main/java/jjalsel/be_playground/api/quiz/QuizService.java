@@ -24,7 +24,6 @@ public class QuizService {
         quizRepository.save(quizRequest.toQuizEntity());
     }
 
-
    /*
        퀴즈 목록 (조건에 맞는 랜덤 10개)
      */
