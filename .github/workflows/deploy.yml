@@ -27,7 +27,7 @@ jobs:
 
       - name: Install SSH key
         run: |
-          echo "${{ secrets.EC2_PEM_KEY }}" | tr -d '\r' > enjoyjjalseu.pem
+          echo "${{ secrets.EC2_KEY }}" | tr -d '\r' > enjoyjjalseu.pem
           chmod 400 enjoyjjalseu.pem
 
       - name: Verify SSH key creation
