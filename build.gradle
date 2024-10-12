@@ -32,6 +32,10 @@ dependencies {
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
 
+    // thymeleaf
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+
+
     // postgresql
     implementation 'org.postgresql:postgresql:42.7.4'
 
