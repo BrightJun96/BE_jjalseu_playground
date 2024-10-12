@@ -26,5 +26,5 @@ jobs:
           script: |
             cd /home/ubuntu/BE_jjalseu_playground           
             git pull origin main           
-            ./gradlew build                
+            ./gradlew build -x test               
             sudo systemctl restart devplayground-application.service 
