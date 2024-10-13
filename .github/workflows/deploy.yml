@@ -25,6 +25,5 @@ jobs:
             cd /home/ubuntu/BE_jjalseu_playground
             git pull origin main
             ./gradlew build -x test
-            sudo pkill -f 'java -jar /home/ubuntu/BE_jjalseu_playground/build/libs/BE_playground-0.0.1-SNAPSHOT.jar'
-            java -jar /home/ubuntu/BE_jjalseu_playground/build/libs/BE_playground-0.0.1-SNAPSHOT.jar > /home/ubuntu/myapp.log 2>&1 &
+            nohup java -jar /home/ubuntu/BE_jjalseu_playground/build/libs/BE_playground-0.0.1-SNAPSHOT.jar &
             sudo systemctl restart nginx
