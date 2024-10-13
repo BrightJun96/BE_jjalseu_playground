@@ -24,7 +24,8 @@ jobs:
           key: ${{ secrets.EC2_KEY }}
           port: 22
           script: |
-            cd /home/ubuntu/BE_jjalseu_playground           
-            git pull origin main           
-            ./gradlew build -x test               
-            sudo systemctl restart devplayground-application.service 
+            cd /home/ubuntu/BE_jjalseu_playground
+            git pull origin main
+            ./gradlew build -x test
+            sudo pkill -f 'java -jar /home/ubuntu/BE_jjalseu_playground/build/libs/BE_playground-0.0.1-SNAPSHOT.jar'
+            nohup java -jar /home/ubuntu/BE_jjalseu_playground/build/libs/BE_playground-0.0.1-SNAPSHOT.jar > /home/ubuntu/myapp.log 2>&1 &
