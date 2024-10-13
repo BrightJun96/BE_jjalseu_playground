@@ -11,11 +11,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. GitHub 리포지토리에서 코드를 체크아웃합니다.
       - name: Checkout code
         uses: actions/checkout@v2
 
-      # 2. EC2 인스턴스에 SSH로 접속하여 명령어를 실행합니다.
       - name: Deploy to EC2
         uses: appleboy/ssh-action@master
         with:
@@ -29,3 +27,5 @@ jobs:
             ./gradlew build -x test
             sudo pkill -f 'java -jar /home/ubuntu/BE_jjalseu_playground/build/libs/BE_playground-0.0.1-SNAPSHOT.jar'
             nohup java -jar /home/ubuntu/BE_jjalseu_playground/build/libs/BE_playground-0.0.1-SNAPSHOT.jar > /home/ubuntu/myapp.log 2>&1 &
+            sleep 10  
+            sudo systemctl restart nginx  
