@@ -14,4 +14,8 @@ public class QuizResponseWithTotalTime {
 
     // 퀴즈의 총 풀이 시간 합계
     private int totalTime;
+
+    // 퀴즈의 총 갯수
+    private int totalCount;  // 추가
+
 }

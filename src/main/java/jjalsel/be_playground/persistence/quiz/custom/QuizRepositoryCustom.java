@@ -9,4 +9,6 @@ public interface QuizRepositoryCustom {
 
     // 추가: 필터 조건에 맞는 퀴즈들의 time 합계를 반환
     Integer sumOfTime(String field, String lang);
+
+
 }

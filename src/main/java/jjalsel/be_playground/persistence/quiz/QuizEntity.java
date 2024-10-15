@@ -2,8 +2,11 @@ package jjalsel.be_playground.persistence.quiz;
 
 
 import jakarta.persistence.*;
+import jjalsel.be_playground.persistence.multipleChoice.MultipleChoiceEntity;
 import lombok.*;
 import org.hibernate.annotations.Comment;
+
+import java.util.List;
 
 @Entity
 @Getter
@@ -50,6 +53,19 @@ public class QuizEntity {
     private String lang;
 
     @Column(nullable = false)
+    @Comment("문제 난이도")
+    private int level;
+
+    @Column(nullable = false)
+    @Comment("객관식일 경우 ,중복 선택 여부")
+    private boolean isMultiple;
+
+    @Column(nullable = false)
     @Comment("문제 풀이 소요시간")
     private int time;
+
+    // 객관식 선택지 리스트
+    @OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Comment("객관식 선택지 리스트")
+    private List<MultipleChoiceEntity> multipleChoices;
 }

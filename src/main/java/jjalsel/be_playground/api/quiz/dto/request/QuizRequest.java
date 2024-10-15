@@ -2,6 +2,7 @@ package jjalsel.be_playground.api.quiz.dto.request;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jjalsel.be_playground.persistence.quiz.QuizEntity;
 import lombok.Builder;
 import lombok.Getter;
@@ -40,6 +41,12 @@ public class QuizRequest {
     @Min(value = 1, message = "문제 풀이 소요시간은 1 이상이어야 합니다.")
     private int time;
 
+    @Min(value = 1,message= "문제 난이도를 입력해주세요.")
+    private int level;
+
+    @NotNull(message = "객관식일 경우, 중복 선택 여부를 입력해주세요.")
+    private boolean isMultiple;
+
     public QuizEntity toQuizEntity() {
         return QuizEntity.builder()
                 .questionTitle(questionTitle)
@@ -51,6 +58,8 @@ public class QuizRequest {
                 .field(field)
                 .lang(lang)
                 .time(time)
+                .level(level)
+                .isMultiple(isMultiple)
                 .build();
     }
 }

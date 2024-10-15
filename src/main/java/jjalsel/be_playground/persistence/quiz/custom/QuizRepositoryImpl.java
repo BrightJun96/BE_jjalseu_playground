@@ -18,13 +18,14 @@ public class QuizRepositoryImpl implements QuizRepositoryCustom {
 
     @Override
     public List<QuizEntity> findFilteredAndRandom(String field, String lang, int count) {
+
+
         return queryFactory
                 .selectFrom(quizEntity)
                 .where(
                         fieldEq(field),
                         langEq(lang)
                 )
-                // PostgreSQL의 random() 함수를 사용하여 무작위로 정렬
                 .orderBy(com.querydsl.core.types.dsl.Expressions.numberTemplate(Double.class, "function('random')").asc())
                 .limit(count)
                 .fetch();
@@ -42,6 +43,8 @@ public class QuizRepositoryImpl implements QuizRepositoryCustom {
                 )
                 .fetchOne();
     }
+
+
 
     private com.querydsl.core.types.dsl.BooleanExpression fieldEq(String field) {
         return field != null ? quizEntity.field.eq(field) : null;

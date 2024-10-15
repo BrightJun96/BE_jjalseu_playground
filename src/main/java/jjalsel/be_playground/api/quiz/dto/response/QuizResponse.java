@@ -4,6 +4,8 @@ import jjalsel.be_playground.persistence.quiz.QuizEntity;
 import lombok.Builder;
 import lombok.Getter;
 
+import java.util.List;
+
 @Getter
 @Builder
 public class QuizResponse {
@@ -28,8 +30,11 @@ public class QuizResponse {
 
     private int time;
 
+    private List<MultipleChoiceResponse> multipleChoices; // 추가
+
+
     // QuizEntity에서 QuizResponse로 변환하는 정적 메서드
-    public static QuizResponse fromEntity(QuizEntity quizEntity) {
+    public static QuizResponse fromEntity(QuizEntity quizEntity, List<MultipleChoiceResponse> multipleChoices) {
         return QuizResponse.builder()
                 .quizId(quizEntity.getId())
                 .questionTitle(quizEntity.getQuestionTitle())
@@ -41,6 +46,7 @@ public class QuizResponse {
                 .field(quizEntity.getField())
                 .lang(quizEntity.getLang())
                 .time(quizEntity.getTime())
+                .multipleChoices(multipleChoices) // 추가
                 .build();
     }
 }
