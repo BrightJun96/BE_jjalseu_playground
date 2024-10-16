@@ -6,6 +6,7 @@ import jjalsel.be_playground.api.quiz.dto.request.QuizListRequest;
 import jjalsel.be_playground.api.quiz.dto.request.QuizRequest;
 import jjalsel.be_playground.api.quiz.dto.response.QuizResponse;
 import jjalsel.be_playground.api.quiz.dto.response.QuizResponseWithTotalTime;
+import jjalsel.be_playground.common.response.Response;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,16 +26,16 @@ public class QuizController {
 
     // 퀴즈 등록
     @PostMapping("register")
-    public void registerQuiz(@RequestBody @Valid QuizRequest quizRequest) {
+    public Response<?> registerQuiz(@RequestBody @Valid QuizRequest quizRequest) {
 
-        quizService.registerQuiz(quizRequest);
+        return Response.ok();
 
     }
 
     // 퀴즈 목록
     @GetMapping("list")
-    public QuizResponseWithTotalTime getQuizList(QuizListRequest quizListRequest) {
-        return quizService.getQuizList(quizListRequest);
+    public Response<QuizResponseWithTotalTime> getQuizList(QuizListRequest quizListRequest) {
+        return  Response.ok(quizService.getQuizList(quizListRequest));
     }
 
 

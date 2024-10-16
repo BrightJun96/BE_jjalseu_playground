@@ -47,6 +47,8 @@ public class QuizRequest {
     @NotNull(message = "객관식일 경우, 중복 선택 여부를 입력해주세요.")
     private boolean isMultiple;
 
+    private String[] multipleChoiceContents;
+
     public QuizEntity toQuizEntity() {
         return QuizEntity.builder()
                 .questionTitle(questionTitle)
@@ -60,6 +62,23 @@ public class QuizRequest {
                 .time(time)
                 .level(level)
                 .isMultiple(isMultiple)
+                .build();
+    }
+
+    public QuizRequest toQuizRequest(){
+        return QuizRequest.builder()
+                .questionTitle(questionTitle)
+                .questionContent(questionContent)
+                .answer(answer)
+                .type(type)
+                .hint(hint)
+                .explanation(explanation)
+                .field(field)
+                .lang(lang)
+                .time(time)
+                .level(level)
+                .isMultiple(isMultiple)
+                .multipleChoiceContents(multipleChoiceContents)
                 .build();
     }
 }

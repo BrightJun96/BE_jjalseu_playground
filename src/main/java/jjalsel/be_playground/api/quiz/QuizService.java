@@ -26,7 +26,24 @@ public class QuizService {
      */
     public void registerQuiz(QuizRequest quizRequest) {
 
-        quizRepository.save(quizRequest.toQuizEntity());
+
+
+        // 1. QuizRequest 객체를 QuizEntity로 변환 및 저장 (multipleChoiceContents 제외)
+        QuizEntity savedQuiz = quizRepository.save(quizRequest.toQuizEntity());
+
+        // 2. multipleChoiceContents가 있는 경우 처리
+        if (quizRequest.getMultipleChoiceContents() != null) {
+            for (String choiceContent : quizRequest.getMultipleChoiceContents()) {
+                // MultipleChoiceEntity 생성
+                MultipleChoiceEntity multipleChoice = MultipleChoiceEntity.builder()
+                        .content(choiceContent)  // 선택지 내용
+                        .quiz(savedQuiz)         // 저장된 퀴즈 엔티티와 연관
+                        .build();
+
+                // MultipleChoiceRepository에 저장
+                multipleChoiceRepository.save(multipleChoice);
+            }
+        }
     }
 
 
