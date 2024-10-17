@@ -28,6 +28,7 @@ public class QuizController {
     @PostMapping("register")
     public Response<?> registerQuiz(@RequestBody @Valid QuizRequest quizRequest) {
 
+        quizService.registerQuiz(quizRequest);
         return Response.ok();
 
     }

@@ -20,15 +20,15 @@ public class QuizEntity {
     @Comment("PK")
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false,columnDefinition = "TEXT")
     @Comment("문제")
     private String questionTitle;
 
-    @Column(nullable = false)
+    @Column(nullable = false,columnDefinition = "TEXT")
     @Comment("문제내용")
     private String questionContent;
 
-    @Column(nullable = false)
+    @Column(nullable = false,columnDefinition = "TEXT")
     @Comment("정답")
     private String answer;
 
@@ -36,11 +36,11 @@ public class QuizEntity {
     @Comment("문제타입")
     private String type;
 
-    @Column(nullable = true)
+    @Column(nullable = true,columnDefinition = "TEXT")
     @Comment("힌트")
     private String hint;
 
-    @Column(nullable = false)
+    @Column(nullable = false,columnDefinition = "TEXT")
     @Comment("해설")
     private String explanation;
 
