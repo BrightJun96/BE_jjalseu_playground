@@ -1,5 +1,7 @@
 package jjalsel.be_playground.common.response;
 
+import java.util.Collections;
+
 /**
  * 응답 객체
  */
@@ -25,6 +27,14 @@ public record Response<T>(
                 true,
                 data,
                 message // 메시지 포함
+        );
+    }
+
+    public static Response<?> ok() {
+        return new Response<>(
+                true,
+                "success",
+                null
         );
     }
 
