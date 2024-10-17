@@ -21,6 +21,10 @@ public class MultipleChoiceEntity {
     @Comment("문제")
     private String content;
 
+    @Column(nullable = false)
+    @Comment("문제 번호")
+    private int number;
+
     // QuizEntity와의 관계 설정 (ManyToOne)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "quiz_id", nullable = false)

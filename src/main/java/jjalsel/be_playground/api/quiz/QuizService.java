@@ -33,15 +33,20 @@ public class QuizService {
 
         // 2. multipleChoiceContents가 있는 경우 처리
         if (quizRequest.getMultipleChoiceContents() != null) {
+            int choiceNumber = 1;
+
             for (String choiceContent : quizRequest.getMultipleChoiceContents()) {
                 // MultipleChoiceEntity 생성
                 MultipleChoiceEntity multipleChoice = MultipleChoiceEntity.builder()
                         .content(choiceContent)  // 선택지 내용
-                        .quiz(savedQuiz)         // 저장된 퀴즈 엔티티와 연관
+                        .quiz(savedQuiz)// 저장된 퀴즈 엔티티와 연관
+                        .number(choiceNumber)  // 선택지 번호
                         .build();
 
                 // MultipleChoiceRepository에 저장
                 multipleChoiceRepository.save(multipleChoice);
+
+                choiceNumber++;
             }
         }
     }

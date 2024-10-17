@@ -14,12 +14,15 @@ public class MultipleChoiceResponse {
 
     private Long quizId;
 
+    private int number;
+
 
     public static MultipleChoiceResponse fromEntity(MultipleChoiceEntity multipleChoiceEntity) {
         return MultipleChoiceResponse.builder()
                 .multipleChoiceId(multipleChoiceEntity.getId())
                 .content(multipleChoiceEntity.getContent())
                 .quizId(multipleChoiceEntity.getQuiz().getId())
+                .number(multipleChoiceEntity.getNumber())
                 .build();
     }
 }
