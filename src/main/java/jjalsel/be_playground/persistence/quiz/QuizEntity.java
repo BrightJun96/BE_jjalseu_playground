@@ -2,6 +2,7 @@ package jjalsel.be_playground.persistence.quiz;
 
 
 import jakarta.persistence.*;
+import jjalsel.be_playground.common.utils.IntArrayConverter;
 import jjalsel.be_playground.persistence.multipleChoice.MultipleChoiceEntity;
 import lombok.*;
 import org.hibernate.annotations.Comment;
@@ -22,15 +23,11 @@ public class QuizEntity {
 
     @Column(nullable = false,columnDefinition = "TEXT")
     @Comment("문제")
-    private String questionTitle;
+    private String title;
 
     @Column(nullable = false,columnDefinition = "TEXT")
     @Comment("문제내용")
-    private String questionContent;
-
-    @Column(nullable = false,columnDefinition = "TEXT")
-    @Comment("정답")
-    private String answer;
+    private String content;
 
     @Column(nullable = false)
     @Comment("문제타입")
@@ -64,8 +61,24 @@ public class QuizEntity {
     @Comment("문제 풀이 소요시간")
     private int time;
 
+    @Column(nullable = true)
+    @Comment("객관식 답안")
+    @Convert(converter = IntArrayConverter.class)
+    private int[] multipleChoiceAnswer;
+
+
+    @Column(nullable = true,columnDefinition = "TEXT")
+    @Comment("주관식 답안")
+    private String subjectiveAnswer;
+
+
     // 객관식 선택지 리스트
     @OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL, orphanRemoval = true)
     @Comment("객관식 선택지 리스트")
     private List<MultipleChoiceEntity> multipleChoices;
+
+
+
+
+
 }
