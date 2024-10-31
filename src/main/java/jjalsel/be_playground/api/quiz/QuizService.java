@@ -89,5 +89,24 @@ public class QuizService {
     }
 
 
+    /*
+     * 퀴즈 단일 조회
+     */
+    public QuizResponse getQuizElement(QuizItemRequest quizItemRequest) {
+        // QuizEntity 조회
+        QuizEntity quiz = quizRepository.findFilteredAndRandomOne(
+                quizItemRequest
+        );
 
+        // MultipleChoiceEntity 조회
+        List<MultipleChoiceResponse> multipleChoices = multipleChoiceRepository.findByQuizId(quiz.getId())
+                .stream()
+                .map(entity -> MultipleChoiceResponse.fromEntity((MultipleChoiceEntity) entity))
+                .toList();
+
+        // QuizResponse로 변환
+        return QuizResponse.fromEntity(quiz, multipleChoices);
+
+
+}
 }

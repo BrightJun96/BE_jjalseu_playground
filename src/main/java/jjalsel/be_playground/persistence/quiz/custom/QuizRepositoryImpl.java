@@ -1,7 +1,9 @@
 package jjalsel.be_playground.persistence.quiz.custom;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import jjalsel.be_playground.api.quiz.dto.request.QuizItemRequest;
 import jjalsel.be_playground.api.quiz.dto.request.QuizListRequest;
+import jjalsel.be_playground.api.quiz.dto.request.QuizRequest;
 import jjalsel.be_playground.persistence.quiz.QuizEntity;
 import jjalsel.be_playground.persistence.quiz.custom.QuizRepositoryCustom;
 import lombok.RequiredArgsConstructor;
@@ -45,6 +47,17 @@ public class QuizRepositoryImpl implements QuizRepositoryCustom {
                 .fetchOne();
     }
 
+    @Override
+    public QuizEntity findFilteredAndRandomOne(QuizItemRequest quizItemRequest) {
+        return queryFactory
+                .selectFrom(quizEntity)
+                .where(
+                        fieldEq(quizItemRequest.getField()),
+                        langEq(quizItemRequest.getLang())
+                )
+                .fetchOne();
+
+    }
 
 
     private com.querydsl.core.types.dsl.BooleanExpression fieldEq(String field) {

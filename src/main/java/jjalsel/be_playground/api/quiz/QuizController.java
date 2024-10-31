@@ -19,9 +19,10 @@ public class QuizController {
 
     private final QuizService quizService;
 
-    @GetMapping("element")
-    public String getQuizElement() {
-        return "element";
+    // 퀴즈 단일 조회
+    @GetMapping("/item")
+    public Response<?> getQuizElement(QuizItemRequest quizItemRequest) {
+        return Response.ok(quizService.getQuizElement(quizItemRequest));
     }
 
     // 퀴즈 등록

@@ -1,5 +1,6 @@
 package jjalsel.be_playground.persistence.quiz.custom;
 
+import jjalsel.be_playground.api.quiz.dto.request.QuizItemRequest;
 import jjalsel.be_playground.api.quiz.dto.request.QuizListRequest;
 import jjalsel.be_playground.api.quiz.dto.request.QuizRequest;
 import jjalsel.be_playground.persistence.quiz.QuizEntity;
@@ -12,5 +13,6 @@ public interface QuizRepositoryCustom {
     Integer sumOfTime(String field, String lang);
 
 
+    QuizEntity findFilteredAndRandomOne(QuizItemRequest quizItemRequest);
 
 }
