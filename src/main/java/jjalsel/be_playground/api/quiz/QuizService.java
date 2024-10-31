@@ -1,9 +1,11 @@
 package jjalsel.be_playground.api.quiz;
 
+import jjalsel.be_playground.api.quiz.dto.request.QuizCheckRequest;
 import jjalsel.be_playground.api.quiz.dto.request.QuizItemRequest;
 import jjalsel.be_playground.api.quiz.dto.request.QuizListRequest;
 import jjalsel.be_playground.api.quiz.dto.request.QuizRequest;
 import jjalsel.be_playground.api.quiz.dto.response.MultipleChoiceResponse;
+import jjalsel.be_playground.api.quiz.dto.response.QuizCheckResponse;
 import jjalsel.be_playground.api.quiz.dto.response.QuizResponse;
 import jjalsel.be_playground.api.quiz.dto.response.QuizResponseWithTotalTime;
 import jjalsel.be_playground.persistence.multipleChoice.MultipleChoiceEntity;
@@ -110,7 +112,36 @@ public class QuizService {
 }
 
     // 퀴즈 정답 확인
-//    public boolean checkAnswer(Long quizId, Long choiceId) {
-//
-//    };
+    public QuizCheckResponse checkAnswer(QuizCheckRequest quizCheckRequest) {
+
+        QuizEntity quiz  = quizRepository.findById(quizCheckRequest.getQuizId())
+            .orElseThrow(() -> new IllegalArgumentException("해당 ID의 퀴즈가 존재하지 않습니다."));
+
+
+
+        /*
+          정답과 비교하여 결과 반환
+           correctAnswers 내부의 넘버와 quizCheckRequest.answer의 넘버를 비교하여
+           quizCheckRequest.answer에 correctAnswers값들이 포함되어있지 않다면 오답
+          */
+
+        boolean isCorrect = true;
+        // 모든 correctAnswers 값이 userAnswers에 포함되어 있는지 확인
+        for (int correctAnswer : quiz.getMultipleChoiceAnswer()) {
+            if (!quizCheckRequest.getUserAnswer().contains(correctAnswer)) {
+                isCorrect = false;
+                break;
+            }
+        }
+
+
+
+        return QuizCheckResponse.builder()
+                .isCorrect(isCorrect)
+                .answer(quiz.getMultipleChoiceAnswer())
+                .userAnswer(quizCheckRequest.getUserAnswer())
+                .build();
+
+
+    };
 }
