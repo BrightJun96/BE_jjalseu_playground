@@ -61,7 +61,6 @@ public class QuizService {
         );
 
         // 각 퀴즈를 QuizResponse로 변환
-        // 각 퀴즈를 QuizResponse로 변환
         List<QuizResponse> quizResponses = quizzes.stream()
                 .map(quiz -> {
                     List<MultipleChoiceResponse> multipleChoices = multipleChoiceRepository.findByQuizId(quiz.getId())
@@ -109,4 +108,9 @@ public class QuizService {
 
 
 }
+
+    // 퀴즈 정답 확인
+//    public boolean checkAnswer(Long quizId, Long choiceId) {
+//
+//    };
 }

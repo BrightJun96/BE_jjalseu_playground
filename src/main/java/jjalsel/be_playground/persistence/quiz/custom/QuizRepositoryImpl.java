@@ -55,6 +55,8 @@ public class QuizRepositoryImpl implements QuizRepositoryCustom {
                         fieldEq(quizItemRequest.getField()),
                         langEq(quizItemRequest.getLang())
                 )
+                .orderBy(com.querydsl.core.types.dsl.Expressions.numberTemplate(Double.class, "function('random')").asc())
+                .limit(1)
                 .fetchOne();
 
     }
