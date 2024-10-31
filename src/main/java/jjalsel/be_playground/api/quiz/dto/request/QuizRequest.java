@@ -12,15 +12,16 @@ import lombok.Getter;
 public class QuizRequest {
 
     @NotBlank(message = "문제 제목을 입력해주세요.")
-    private String questionTitle;
+    private String title;
 
     @NotBlank(message = "문제 내용을 입력해주세요.")
-    private String questionContent;
+    private String content;
 
+    // 주관식 답안
+    private String subjectAnswer;
 
-    @NotBlank(message = "정답을 입력해주세요.")
-    private String answer;
-
+    // 객관식 답안
+    private int[] multipleChoiceAnswer;
 
     @NotBlank(message = "문제 타입을 입력해주세요.")
     private String type;
@@ -51,9 +52,10 @@ public class QuizRequest {
 
     public QuizEntity toQuizEntity() {
         return QuizEntity.builder()
-                .questionTitle(questionTitle)
-                .questionContent(questionContent)
-                .answer(answer)
+                .title(title)
+                .content(content)
+                .subjectiveAnswer(subjectAnswer)
+                .multipleChoiceAnswer(multipleChoiceAnswer)
                 .type(type)
                 .hint(hint)
                 .explanation(explanation)
@@ -65,20 +67,5 @@ public class QuizRequest {
                 .build();
     }
 
-    public QuizRequest toQuizRequest(){
-        return QuizRequest.builder()
-                .questionTitle(questionTitle)
-                .questionContent(questionContent)
-                .answer(answer)
-                .type(type)
-                .hint(hint)
-                .explanation(explanation)
-                .field(field)
-                .lang(lang)
-                .time(time)
-                .level(level)
-                .isMultiple(isMultiple)
-                .multipleChoiceContents(multipleChoiceContents)
-                .build();
-    }
+
 }

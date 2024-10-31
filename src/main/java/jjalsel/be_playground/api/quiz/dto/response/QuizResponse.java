@@ -12,11 +12,15 @@ public class QuizResponse {
 
     private Long quizId;
 
-    private String questionTitle;
+    private String title;
 
-    private String questionContent;
+    private String content;
 
-    private String answer;
+    // 객관식 답안
+    private int[] multipleChoiceAnswer;
+
+    // 주관식 답안
+    private String subjectAnswer;
 
     private String type;
 
@@ -37,9 +41,10 @@ public class QuizResponse {
     public static QuizResponse fromEntity(QuizEntity quizEntity, List<MultipleChoiceResponse> multipleChoices) {
         return QuizResponse.builder()
                 .quizId(quizEntity.getId())
-                .questionTitle(quizEntity.getQuestionTitle())
-                .questionContent(quizEntity.getQuestionContent())
-                .answer(quizEntity.getAnswer())
+                .title(quizEntity.getTitle())
+                .content(quizEntity.getContent())
+                .multipleChoiceAnswer(quizEntity.getMultipleChoiceAnswer())
+                .subjectAnswer(quizEntity.getSubjectiveAnswer())
                 .type(quizEntity.getType())
                 .hint(quizEntity.getHint())
                 .explanation(quizEntity.getExplanation())
