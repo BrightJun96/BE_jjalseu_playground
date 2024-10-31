@@ -57,9 +57,7 @@ public class QuizService {
      */
     public QuizResponseWithTotalTime getQuizList(QuizListRequest quizListRequest) {
         List<QuizEntity> quizzes = quizRepository.findFilteredAndRandom(
-                quizListRequest.getField(),
-                quizListRequest.getLang(),
-               quizListRequest.getCount()
+                quizListRequest
         );
 
         // 각 퀴즈를 QuizResponse로 변환

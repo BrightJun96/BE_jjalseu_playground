@@ -1,6 +1,7 @@
 package jjalsel.be_playground.persistence.quiz.custom;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import jjalsel.be_playground.api.quiz.dto.request.QuizListRequest;
 import jjalsel.be_playground.persistence.quiz.QuizEntity;
 import jjalsel.be_playground.persistence.quiz.custom.QuizRepositoryCustom;
 import lombok.RequiredArgsConstructor;
@@ -17,17 +18,17 @@ public class QuizRepositoryImpl implements QuizRepositoryCustom {
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public List<QuizEntity> findFilteredAndRandom(String field, String lang, int count) {
+    public List<QuizEntity> findFilteredAndRandom(QuizListRequest quizListRequest) {
 
 
         return queryFactory
                 .selectFrom(quizEntity)
                 .where(
-                        fieldEq(field),
-                        langEq(lang)
+                        fieldEq(quizListRequest.getField()),
+                        langEq(quizListRequest.getLang())
                 )
                 .orderBy(com.querydsl.core.types.dsl.Expressions.numberTemplate(Double.class, "function('random')").asc())
-                .limit(count)
+                .limit(quizListRequest.getCount())
                 .fetch();
     }
 
