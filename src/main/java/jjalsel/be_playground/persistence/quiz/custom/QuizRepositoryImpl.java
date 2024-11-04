@@ -1,5 +1,6 @@
 package jjalsel.be_playground.persistence.quiz.custom;
 
+import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jjalsel.be_playground.api.quiz.dto.request.QuizItemRequest;
 import jjalsel.be_playground.api.quiz.dto.request.QuizListRequest;
@@ -53,7 +54,8 @@ public class QuizRepositoryImpl implements QuizRepositoryCustom {
                 .selectFrom(quizEntity)
                 .where(
                         fieldEq(quizItemRequest.getField()),
-                        langEq(quizItemRequest.getLang())
+                        langEq(quizItemRequest.getLang()),
+                        excludeQuizIdNotIn(quizItemRequest.getExcludeQuizId())
                 )
                 .orderBy(com.querydsl.core.types.dsl.Expressions.numberTemplate(Double.class, "function('random')").asc())
                 .limit(1)
@@ -68,5 +70,12 @@ public class QuizRepositoryImpl implements QuizRepositoryCustom {
 
     private com.querydsl.core.types.dsl.BooleanExpression langEq(String lang) {
         return lang != null ? quizEntity.lang.eq(lang) : null;
+    }
+
+    private BooleanExpression excludeQuizIdNotIn(List<Long> excludeQuizId) {
+        if (excludeQuizId == null || excludeQuizId.isEmpty()) {
+            return null;
+        }
+        return quizEntity.id.notIn(excludeQuizId);
     }
 }
