@@ -36,6 +36,12 @@ public class QuizController {
 
     }
 
+    // 퀴즈목록 - Pk 목록만 반환
+    @GetMapping("list-pk")
+    public Response<List<Long>> getQuizPkList(QuizListRequest quizListRequest) {
+        return Response.ok(quizService.getQuizPkList(quizListRequest));
+    }
+
     // 퀴즈 목록
     @GetMapping("list")
     public Response<QuizResponseWithTotalTime> getQuizList(QuizListRequest quizListRequest) {

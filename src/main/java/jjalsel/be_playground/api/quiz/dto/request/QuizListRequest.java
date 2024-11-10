@@ -8,7 +8,7 @@ import lombok.Getter;
 public class QuizListRequest {
 
     // 응답할 문제 갯수
-    private int count;
+    private Integer count;
 
     // 분야
     private String field;

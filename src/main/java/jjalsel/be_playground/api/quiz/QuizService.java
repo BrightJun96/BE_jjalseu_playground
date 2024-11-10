@@ -144,4 +144,14 @@ public class QuizService {
 
 
     };
+
+
+    // 퀴즈 PK 목록
+    public List<Long> getQuizPkList(QuizListRequest quizListRequest) {
+        return quizRepository.findFilteredAndRandom(quizListRequest)
+                .stream()
+                .map(QuizEntity::getId)
+                .toList();
+    }
+
 }
