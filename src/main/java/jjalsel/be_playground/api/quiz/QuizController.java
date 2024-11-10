@@ -1,10 +1,7 @@
 package jjalsel.be_playground.api.quiz;
 
 import jakarta.validation.Valid;
-import jjalsel.be_playground.api.quiz.dto.request.QuizCheckRequest;
-import jjalsel.be_playground.api.quiz.dto.request.QuizItemRequest;
-import jjalsel.be_playground.api.quiz.dto.request.QuizListRequest;
-import jjalsel.be_playground.api.quiz.dto.request.QuizRequest;
+import jjalsel.be_playground.api.quiz.dto.request.*;
 import jjalsel.be_playground.api.quiz.dto.response.QuizCheckResponse;
 import jjalsel.be_playground.api.quiz.dto.response.QuizResponse;
 import jjalsel.be_playground.api.quiz.dto.response.QuizResponseWithTotalTime;
@@ -55,7 +52,12 @@ public class QuizController {
 
 
     // 퀴즈 수정
-//    @PutMapping("{quizId}")
+    @PatchMapping("{quizId}")
+    public Response<?> partialUpdateQuiz(@PathVariable Long quizId, @RequestBody QuizUpdateRequest quizUpdateRequest) {
+        quizService.partialUpdateQuiz(quizId, quizUpdateRequest);
+        return Response.ok();
+    }
+
 
     // 퀴즈 삭제
     @DeleteMapping("{quizId}")
