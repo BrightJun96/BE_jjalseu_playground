@@ -21,19 +21,14 @@ public class QuizController {
 
     private final QuizService quizService;
 
-    // 퀴즈 단일 조회
+
+    /**
+     * 클라이언트단 API
+     */
+    // 퀴즈 단일 조회 ,사용자,관리자 둘다 사용
     @GetMapping("/item")
     public Response<?> getQuizElement(QuizItemRequest quizItemRequest) {
         return Response.ok(quizService.getQuizElement(quizItemRequest));
-    }
-
-    // 퀴즈 등록
-    @PostMapping("register")
-    public Response<?> registerQuiz(@RequestBody @Valid QuizRequest quizRequest) {
-
-        quizService.registerQuiz(quizRequest);
-        return Response.ok();
-
     }
 
     // 퀴즈목록 - Pk 목록만 반환
@@ -42,17 +37,44 @@ public class QuizController {
         return Response.ok(quizService.getQuizPkList(quizListRequest));
     }
 
+    // 퀴즈 정답 확인
+    @PostMapping("check")
+    public Response<QuizCheckResponse> checkAnswer(@RequestBody @Valid QuizCheckRequest quizCheckRequest) {
+        return Response.ok(quizService.checkAnswer(quizCheckRequest));
+    }
+
+
+    /**
+     * 관리자단 API
+     */
     // 퀴즈 목록
     @GetMapping("list")
     public Response<QuizResponseWithTotalTime> getQuizList(QuizListRequest quizListRequest) {
         return  Response.ok(quizService.getQuizList(quizListRequest));
     }
 
-    // 퀴즈 정답 확인
-    @PostMapping("check")
-    public Response<QuizCheckResponse> checkAnswer(@RequestBody @Valid QuizCheckRequest quizCheckRequest) {
-        return Response.ok(quizService.checkAnswer(quizCheckRequest));
+
+    // 퀴즈 수정
+//    @PutMapping("{quizId}")
+
+    // 퀴즈 삭제
+    @DeleteMapping("{quizId}")
+    public Response<?> deleteQuiz(@PathVariable Long quizId) {
+        quizService.deleteQuiz(quizId);
+        return Response.ok();
     }
+
+    // 퀴즈 등록
+    @PostMapping("register")
+    public Response<?> registerQuiz(@RequestBody @Valid QuizRequest quizRequest) {
+
+        quizService.registerQuiz(quizRequest);
+        return Response.ok();
+    }
+
+
+
+
 
 
 

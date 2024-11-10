@@ -154,4 +154,9 @@ public class QuizService {
                 .toList();
     }
 
+    // 퀴즈 삭제
+    public void deleteQuiz(Long quizId) {
+        quizRepository.deleteById(quizId);
+    }
+
 }
