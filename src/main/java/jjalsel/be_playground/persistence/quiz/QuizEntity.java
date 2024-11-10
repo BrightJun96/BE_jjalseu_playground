@@ -78,6 +78,22 @@ public class QuizEntity {
     private List<MultipleChoiceEntity> multipleChoices;
 
 
+    public void updateFields(String title, String content, String subjectAnswer, int[] multipleChoiceAnswer,
+                             String type, String hint, String explanation, String field, String lang,
+                             Integer time, Integer level, Boolean isMultiple) {
+        if (title != null) this.title = title;
+        if (content != null) this.content = content;
+        if (subjectAnswer != null) this.subjectiveAnswer = subjectAnswer;
+        if (multipleChoiceAnswer != null) this.multipleChoiceAnswer = multipleChoiceAnswer;
+        if (type != null) this.type = type;
+        if (hint != null) this.hint = hint;
+        if (explanation != null) this.explanation = explanation;
+        if (field != null) this.field = field;
+        if (lang != null) this.lang = lang;
+        if (time != null) this.time = time;
+        if (level != null) this.level = level;
+        if (isMultiple != null) this.isMultiple = isMultiple;
+    }
 
 
 

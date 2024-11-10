@@ -1,9 +1,6 @@
 package jjalsel.be_playground.api.quiz;
 
-import jjalsel.be_playground.api.quiz.dto.request.QuizCheckRequest;
-import jjalsel.be_playground.api.quiz.dto.request.QuizItemRequest;
-import jjalsel.be_playground.api.quiz.dto.request.QuizListRequest;
-import jjalsel.be_playground.api.quiz.dto.request.QuizRequest;
+import jjalsel.be_playground.api.quiz.dto.request.*;
 import jjalsel.be_playground.api.quiz.dto.response.MultipleChoiceResponse;
 import jjalsel.be_playground.api.quiz.dto.response.QuizCheckResponse;
 import jjalsel.be_playground.api.quiz.dto.response.QuizResponse;
@@ -144,4 +141,45 @@ public class QuizService {
 
 
     };
+
+
+    // 퀴즈 PK 목록
+    public List<Long> getQuizPkList(QuizListRequest quizListRequest) {
+        return quizRepository.findFilteredAndRandom(quizListRequest)
+                .stream()
+                .map(QuizEntity::getId)
+                .toList();
+    }
+
+    // 퀴즈 삭제
+    public void deleteQuiz(Long quizId) {
+        quizRepository.deleteById(quizId);
+    }
+
+    // 퀴즈 수정
+    public void partialUpdateQuiz(Long quizId, QuizUpdateRequest quizUpdateRequest) {
+        // 기존 퀴즈 조회
+        QuizEntity quiz = quizRepository.findById(quizId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 ID의 퀴즈가 존재하지 않습니다."));
+
+
+        quiz.updateFields(
+                quizUpdateRequest.getTitle(),
+                quizUpdateRequest.getContent(),
+                quizUpdateRequest.getSubjectAnswer(),
+                quizUpdateRequest.getMultipleChoiceAnswer(),
+                quizUpdateRequest.getType(),
+                quizUpdateRequest.getHint(),
+                quizUpdateRequest.getExplanation(),
+                quizUpdateRequest.getField(),
+                quizUpdateRequest.getLang(),
+                quizUpdateRequest.getTime(),
+                quizUpdateRequest.getLevel(),
+                quizUpdateRequest.getIsMultiple()
+        );
+
+        // QuizEntity 저장
+        quizRepository.save(quiz);
+    }
+
 }
