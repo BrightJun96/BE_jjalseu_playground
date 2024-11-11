@@ -50,6 +50,14 @@ public class QuizRequest {
 
     private String[] multipleChoiceContents;
 
+    @NotBlank(message = "메타 타이틀을 입력해주세요.")
+    private String metaTitle;
+
+    @NotBlank(message = "메타 설명을 입력해주세요.")
+    private String metaDescription;
+
+    private String metaImageUrl;
+
     public QuizEntity toQuizEntity() {
         return QuizEntity.builder()
                 .title(title)
@@ -64,6 +72,9 @@ public class QuizRequest {
                 .time(time)
                 .level(level)
                 .isMultiple(isMultiple)
+                .metaTitle(metaTitle)
+                .metaDescription(metaDescription)
+                .metaImageUrl(metaImageUrl)
                 .build();
     }
 

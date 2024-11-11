@@ -21,4 +21,7 @@ public class QuizUpdateRequest {
     private Integer level;
     private Boolean isMultiple;
     private String[] multipleChoiceContents;
+    private String metaTitle;
+    private String metaDescription;
+    private String metaImageUrl;
 }

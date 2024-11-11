@@ -6,7 +6,11 @@ import jjalsel.be_playground.common.utils.IntArrayConverter;
 import jjalsel.be_playground.persistence.multipleChoice.MultipleChoiceEntity;
 import lombok.*;
 import org.hibernate.annotations.Comment;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -15,6 +19,7 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
+@EntityListeners(AuditingEntityListener.class)
 public class QuizEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -71,11 +76,32 @@ public class QuizEntity {
     @Comment("주관식 답안")
     private String subjectiveAnswer;
 
-
-    // 객관식 선택지 리스트
     @OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL, orphanRemoval = true)
     @Comment("객관식 선택지 리스트")
     private List<MultipleChoiceEntity> multipleChoices;
+
+    @CreatedDate
+    @Column(nullable = false, updatable = false)
+    @Comment("생성일")
+    private LocalDateTime createdDate;
+
+    @LastModifiedDate
+    @Column(nullable = false)
+    @Comment("수정일")
+    private LocalDateTime updatedDate;
+
+    // 메타 데이터
+    @Column(nullable = false,columnDefinition = "TEXT")
+    @Comment("메타데이터-제목")
+    private String metaTitle;
+
+    @Column(nullable = false,columnDefinition = "TEXT")
+    @Comment("메타데이터-설명")
+    private String metaDescription;
+
+    @Column(nullable = true)
+    @Comment("메타데이터-이미지 URL")
+    private String metaImageUrl;
 
 
     public void updateFields(String title, String content, String subjectAnswer, int[] multipleChoiceAnswer,
