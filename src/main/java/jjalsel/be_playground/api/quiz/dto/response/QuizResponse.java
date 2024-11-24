@@ -22,6 +22,9 @@ public class QuizResponse {
     // 주관식 답안
     private String subjectAnswer;
 
+    // 레벨
+    private int level;
+
     private String type;
 
     private String hint;
