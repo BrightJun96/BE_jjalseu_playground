@@ -22,6 +22,9 @@ public class QuizResponse {
     // 주관식 답안
     private String subjectAnswer;
 
+    // 레벨
+    private int level;
+
     private String type;
 
     private String hint;
@@ -35,6 +38,21 @@ public class QuizResponse {
     private int time;
 
     private List<MultipleChoiceResponse> multipleChoices; // 추가
+
+    // 생성일
+    private String createdAt;
+
+    // 수정일
+    private String updatedAt;
+
+    // 메타데이터-제목
+    private String metaTitle;
+
+    // 메타데이터-설명
+    private String metaDescription;
+
+    // 메타데이터-이미지URL
+    private String metaImageUrl;
 
 
     // QuizEntity에서 QuizResponse로 변환하는 정적 메서드
@@ -51,7 +69,12 @@ public class QuizResponse {
                 .field(quizEntity.getField())
                 .lang(quizEntity.getLang())
                 .time(quizEntity.getTime())
-                .multipleChoices(multipleChoices) // 추가
+                .multipleChoices(multipleChoices)
+                .createdAt(quizEntity.getCreatedDate().toString())
+                .updatedAt(quizEntity.getUpdatedDate().toString())
+                .metaTitle(quizEntity.getMetaTitle())
+                .metaDescription(quizEntity.getMetaDescription())
+                .metaImageUrl(quizEntity.getMetaImageUrl())
                 .build();
     }
 }

@@ -31,6 +31,8 @@ dependencies {
     testImplementation 'org.springframework.security:spring-security-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
+    // env
+    implementation 'io.github.cdimascio:dotenv-java:2.2.0'
 
     // thymeleaf
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'

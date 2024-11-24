@@ -27,6 +27,12 @@ public class QuizController {
     public Response<?> getQuizElement(QuizItemRequest quizItemRequest) {
         return Response.ok(quizService.getQuizElement(quizItemRequest));
     }
+    // 퀴즈 상세 조회
+    @GetMapping("{quizId}")
+    public Response<QuizResponse> getQuiz(@PathVariable Long quizId) {
+        return Response.ok(quizService.getQuiz(quizId));
+    }
+
 
     // 퀴즈목록 - Pk 목록만 반환
     @GetMapping("list-pk")
@@ -49,6 +55,8 @@ public class QuizController {
     public Response<QuizResponseWithTotalTime> getQuizList(QuizListRequest quizListRequest) {
         return  Response.ok(quizService.getQuizList(quizListRequest));
     }
+
+
 
 
     // 퀴즈 수정
