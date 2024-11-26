@@ -24,4 +24,5 @@ public class QuizUpdateRequest {
     private String metaTitle;
     private String metaDescription;
     private String metaImageUrl;
+    private String detailUrl;
 }
