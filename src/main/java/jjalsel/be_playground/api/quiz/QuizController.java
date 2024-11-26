@@ -27,10 +27,16 @@ public class QuizController {
     public Response<?> getQuizElement(QuizItemRequest quizItemRequest) {
         return Response.ok(quizService.getQuizElement(quizItemRequest));
     }
-    // 퀴즈 상세 조회
+    // 퀴즈 PK로 상세 조회
     @GetMapping("{quizId}")
-    public Response<QuizResponse> getQuiz(@PathVariable Long quizId) {
-        return Response.ok(quizService.getQuiz(quizId));
+    public Response<QuizResponse> getQuizById(@PathVariable Long quizId) {
+        return Response.ok(quizService.getQuizById(quizId));
+    }
+
+    // 퀴즈 detailURL로 상세 조회
+    @GetMapping("detail-url/{detailUrl}")
+    public Response<QuizResponse> getQuizByDetailUrl(@PathVariable String detailUrl) {
+        return Response.ok(quizService.getQuizByDetailUrl(detailUrl));
     }
 
 
@@ -38,6 +44,11 @@ public class QuizController {
     @GetMapping("list-pk")
     public Response<List<Long>> getQuizPkList(QuizListRequest quizListRequest) {
         return Response.ok(quizService.getQuizPkList(quizListRequest));
+    }
+    // 퀴즈 detailURL 목록 반환
+    @GetMapping("list-detail-url")
+    public Response<List<String>> getQuizDetailUrlList(QuizListRequest quizListRequest) {
+        return Response.ok(quizService.getQuizDetailUrlList(quizListRequest));
     }
 
     // 퀴즈 정답 확인

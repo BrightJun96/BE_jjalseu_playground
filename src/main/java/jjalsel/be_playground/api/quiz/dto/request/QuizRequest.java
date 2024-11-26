@@ -58,6 +58,9 @@ public class QuizRequest {
 
     private String metaImageUrl;
 
+    @NotBlank(message = "문제 상세 URL을 입력해주세요.")
+    private String detailUrl;
+
     public QuizEntity toQuizEntity() {
         return QuizEntity.builder()
                 .title(title)
@@ -75,6 +78,7 @@ public class QuizRequest {
                 .metaTitle(metaTitle)
                 .metaDescription(metaDescription)
                 .metaImageUrl(metaImageUrl)
+                .detailUrl(detailUrl)
                 .build();
     }
 
