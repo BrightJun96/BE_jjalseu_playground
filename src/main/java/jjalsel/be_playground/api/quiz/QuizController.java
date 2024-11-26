@@ -29,10 +29,15 @@ public class QuizController {
     }
     // 퀴즈 PK로 상세 조회
     @GetMapping("{quizId}")
-    public Response<QuizResponse> getQuiz(@PathVariable Long quizId) {
-        return Response.ok(quizService.getQuiz(quizId));
+    public Response<QuizResponse> getQuizById(@PathVariable Long quizId) {
+        return Response.ok(quizService.getQuizById(quizId));
     }
 
+    // 퀴즈 detailURL로 상세 조회
+    @GetMapping("detail-url/{detailUrl}")
+    public Response<QuizResponse> getQuizByDetailUrl(@PathVariable String detailUrl) {
+        return Response.ok(quizService.getQuizByDetailUrl(detailUrl));
+    }
 
 
     // 퀴즈목록 - Pk 목록만 반환

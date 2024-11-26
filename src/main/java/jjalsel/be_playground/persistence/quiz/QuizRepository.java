@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface QuizRepository extends JpaRepository<QuizEntity, Long>, QuizRepositoryCustom {
+    // detailURL로 상세 조회
+    QuizEntity findByDetailUrl(String detailUrl);
 }

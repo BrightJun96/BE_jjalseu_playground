@@ -95,10 +95,26 @@ public class QuizService {
 
 
     // 퀴즈 상세 조회(퀴즈 ID로 조회)
-    public QuizResponse getQuiz(Long quizId) {
+    public QuizResponse getQuizById(Long quizId) {
         // QuizEntity 조회
         QuizEntity quiz = quizRepository.findById(quizId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 ID의 퀴즈가 존재하지 않습니다."));
+
+        // MultipleChoiceEntity 조회
+        List<MultipleChoiceResponse> multipleChoices = multipleChoiceRepository.findByQuizId(quiz.getId())
+                .stream()
+                .map(entity -> MultipleChoiceResponse.fromEntity((MultipleChoiceEntity) entity))
+                .toList();
+
+        // QuizResponse로 변환
+        return QuizResponse.fromEntity(quiz, multipleChoices);
+    }
+
+    // 퀴즈 상세 조회(퀴즈 detailURL로 조회)
+    public QuizResponse getQuizByDetailUrl(String detailUrl) {
+        // QuizEntity 조회
+        QuizEntity quiz = quizRepository.findByDetailUrl(detailUrl);
+//                .orElseThrow(() -> new IllegalArgumentException("해당 URL의 퀴즈가 존재하지 않습니다."));
 
         // MultipleChoiceEntity 조회
         List<MultipleChoiceResponse> multipleChoices = multipleChoiceRepository.findByQuizId(quiz.getId())
