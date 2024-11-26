@@ -10,10 +10,13 @@ import java.util.List;
 @Builder
 public class QuizResponse {
 
+    // 퀴즈 ID
     private Long quizId;
 
+    // 제목
     private String title;
 
+    // 문제 내용
     private String content;
 
     // 객관식 답안
@@ -25,19 +28,26 @@ public class QuizResponse {
     // 레벨
     private int level;
 
+    // 타입
     private String type;
 
+    // 힌트
     private String hint;
 
+    // 해설
     private String explanation;
 
+    // 분야
     private String field;
 
+    // 언어
     private String lang;
 
+    // 소요시간
     private int time;
 
-    private List<MultipleChoiceResponse> multipleChoices; // 추가
+    // 객관식 답안 정보
+    private List<MultipleChoiceResponse> multipleChoices;
 
     // 생성일
     private String createdAt;
@@ -53,6 +63,9 @@ public class QuizResponse {
 
     // 메타데이터-이미지URL
     private String metaImageUrl;
+
+    // 상세 URL
+    private String detailUrl;
 
 
     // QuizEntity에서 QuizResponse로 변환하는 정적 메서드
@@ -75,6 +88,7 @@ public class QuizResponse {
                 .metaTitle(quizEntity.getMetaTitle())
                 .metaDescription(quizEntity.getMetaDescription())
                 .metaImageUrl(quizEntity.getMetaImageUrl())
+                .detailUrl(quizEntity.getDetailUrl())
                 .build();
     }
 }
