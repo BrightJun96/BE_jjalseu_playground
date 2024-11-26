@@ -20,36 +20,6 @@ public class QuizService {
     private final QuizRepository quizRepository;
     private final MultipleChoiceRepository multipleChoiceRepository;
 
-    /*
-      퀴즈 등록
-     */
-    public void registerQuiz(QuizRequest quizRequest) {
-
-
-
-        // 1. QuizRequest 객체를 QuizEntity로 변환 및 저장 (multipleChoiceContents 제외)
-        QuizEntity savedQuiz = quizRepository.save(quizRequest.toQuizEntity());
-
-        // 2. multipleChoiceContents가 있는 경우 처리
-        if (quizRequest.getMultipleChoiceContents() != null) {
-            int choiceNumber = 1;
-
-            for (String choiceContent : quizRequest.getMultipleChoiceContents()) {
-                // MultipleChoiceEntity 생성
-                MultipleChoiceEntity multipleChoice = MultipleChoiceEntity.builder()
-                        .content(choiceContent)  // 선택지 내용
-                        .quiz(savedQuiz)// 저장된 퀴즈 엔티티와 연관
-                        .number(choiceNumber)  // 선택지 번호
-                        .build();
-
-                // MultipleChoiceRepository에 저장
-                multipleChoiceRepository.save(multipleChoice);
-
-                choiceNumber++;
-            }
-        }
-    }
-
 
    /*
        퀴즈 목록 (조건에 맞는 랜덤 10개)
@@ -86,6 +56,21 @@ public class QuizService {
                 .build();
     }
 
+    // 퀴즈 PK 목록
+    public List<Long> getQuizPkList(QuizListRequest quizListRequest) {
+        return quizRepository.findFilteredAndRandom(quizListRequest)
+                .stream()
+                .map(QuizEntity::getId)
+                .toList();
+    }
+
+    // 퀴즈 detailURL 목록
+    public List<String> getQuizDetailUrlList(QuizListRequest quizListRequest) {
+        return quizRepository.findFilteredAndRandom(quizListRequest)
+                .stream()
+                .map(QuizEntity::getDetailUrl)
+                .toList();
+    }
 
     /*
      * 퀴즈 단일 조회
@@ -160,18 +145,43 @@ public class QuizService {
     };
 
 
-    // 퀴즈 PK 목록
-    public List<Long> getQuizPkList(QuizListRequest quizListRequest) {
-        return quizRepository.findFilteredAndRandom(quizListRequest)
-                .stream()
-                .map(QuizEntity::getId)
-                .toList();
-    }
 
     // 퀴즈 삭제
     public void deleteQuiz(Long quizId) {
         quizRepository.deleteById(quizId);
     }
+
+    /*
+  퀴즈 등록
+ */
+    public void registerQuiz(QuizRequest quizRequest) {
+
+
+
+        // 1. QuizRequest 객체를 QuizEntity로 변환 및 저장 (multipleChoiceContents 제외)
+        QuizEntity savedQuiz = quizRepository.save(quizRequest.toQuizEntity());
+
+        // 2. multipleChoiceContents가 있는 경우 처리
+        if (quizRequest.getMultipleChoiceContents() != null) {
+            int choiceNumber = 1;
+
+            for (String choiceContent : quizRequest.getMultipleChoiceContents()) {
+                // MultipleChoiceEntity 생성
+                MultipleChoiceEntity multipleChoice = MultipleChoiceEntity.builder()
+                        .content(choiceContent)  // 선택지 내용
+                        .quiz(savedQuiz)// 저장된 퀴즈 엔티티와 연관
+                        .number(choiceNumber)  // 선택지 번호
+                        .build();
+
+                // MultipleChoiceRepository에 저장
+                multipleChoiceRepository.save(multipleChoice);
+
+                choiceNumber++;
+            }
+        }
+    }
+
+
 
     // 퀴즈 수정
     public void partialUpdateQuiz(Long quizId, QuizUpdateRequest quizUpdateRequest) {
