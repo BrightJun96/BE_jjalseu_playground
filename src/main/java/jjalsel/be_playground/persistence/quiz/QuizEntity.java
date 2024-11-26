@@ -103,6 +103,9 @@ public class QuizEntity {
     @Comment("메타데이터-이미지 URL")
     private String metaImageUrl;
 
+    @Column(nullable = false)
+    @Comment("문제 상세 URL")
+    private String detailUrl;
 
     public void updateFields(String title, String content, String subjectAnswer, int[] multipleChoiceAnswer,
                              String type, String hint, String explanation, String field, String lang,
