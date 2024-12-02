@@ -94,6 +94,15 @@ public class QuizService {
 }
 
 
+    // 퀴즈 해설 조회
+    public String getExplanation(String detailUrl) {
+
+        QuizEntity quiz = quizRepository.findByDetailUrl(detailUrl);
+
+        return quiz.getExplanation();
+    }
+
+
     // 퀴즈 상세 조회(퀴즈 ID로 조회)
     public QuizResponse getQuizById(Long quizId) {
         // QuizEntity 조회
