@@ -33,10 +33,6 @@ public class QuizRepositoryImpl implements QuizRepositoryCustom {
                 )
                 .orderBy(com.querydsl.core.types.dsl.Expressions.numberTemplate(Double.class, "function('random')").asc());
 
-        // count 값이 null이 아니고, 0보다 큰 경우에만 limit을 설정합니다.
-        if (quizListRequest.getCount() != null && quizListRequest.getCount() > 0) {
-            query = query.limit(quizListRequest.getCount());
-        }
 
         return query.fetch();
     }
