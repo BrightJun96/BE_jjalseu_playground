@@ -229,7 +229,11 @@ public class QuizService {
                 quizUpdateRequest.getLang(),
                 quizUpdateRequest.getTime(),
                 quizUpdateRequest.getLevel(),
-                quizUpdateRequest.getIsMultiple()
+                quizUpdateRequest.getIsMultiple(),
+                quizUpdateRequest.getMetaTitle(),
+                quizUpdateRequest.getMetaDescription(),
+                quizUpdateRequest.getMetaImageUrl(),
+                quizUpdateRequest.getDetailUrl()
         );
 
         if (quizUpdateRequest.getMultipleChoiceContents() != null) {
