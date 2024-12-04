@@ -1,5 +1,6 @@
 package jjalsel.be_playground.api.quiz;
 
+import jakarta.transaction.Transactional;
 import jjalsel.be_playground.api.quiz.dto.request.*;
 import jjalsel.be_playground.api.quiz.dto.response.MultipleChoiceResponse;
 import jjalsel.be_playground.api.quiz.dto.response.QuizCheckResponse;
@@ -209,6 +210,7 @@ public class QuizService {
 
 
     // 퀴즈 수정
+    @Transactional
     public void partialUpdateQuiz(Long quizId, QuizUpdateRequest quizUpdateRequest) {
         // 기존 퀴즈 조회
         QuizEntity quiz = quizRepository.findById(quizId)
@@ -229,6 +231,29 @@ public class QuizService {
                 quizUpdateRequest.getLevel(),
                 quizUpdateRequest.getIsMultiple()
         );
+
+        if (quizUpdateRequest.getMultipleChoiceContents() != null) {
+            int choiceNumber = 1;
+
+
+            // 기존에 있던 선택지 삭제
+            multipleChoiceRepository.deleteByQuizId(quizId);
+
+
+            for (String choiceContent : quizUpdateRequest.getMultipleChoiceContents()) {
+                // MultipleChoiceEntity 생성
+                MultipleChoiceEntity multipleChoice = MultipleChoiceEntity.builder()
+                        .content(choiceContent)  // 선택지 내용
+                        .quiz(quiz)// 저장된 퀴즈 엔티티와 연관
+                        .number(choiceNumber)  // 선택지 번호
+                        .build();
+
+                // MultipleChoiceRepository에 저장
+                multipleChoiceRepository.save(multipleChoice);
+
+                choiceNumber++;
+            }
+        }
 
         // QuizEntity 저장
         quizRepository.save(quiz);
