@@ -109,7 +109,7 @@ public class QuizEntity {
 
     public void updateFields(String title, String content, String subjectAnswer, int[] multipleChoiceAnswer,
                              String type, String hint, String explanation, String field, String lang,
-                             Integer time, Integer level, Boolean isMultiple) {
+                             Integer time, Integer level, Boolean isMultiple,String metaTitle,String metaDescription,String metaImageUrl,String detailUrl) {
         if (title != null) this.title = title;
         if (content != null) this.content = content;
         if (subjectAnswer != null) this.subjectiveAnswer = subjectAnswer;
@@ -122,6 +122,10 @@ public class QuizEntity {
         if (time != null) this.time = time;
         if (level != null) this.level = level;
         if (isMultiple != null) this.isMultiple = isMultiple;
+        if (metaTitle != null) this.metaTitle = metaTitle;
+        if (metaDescription != null) this.metaDescription = metaDescription;
+        if (metaImageUrl != null) this.metaImageUrl = metaImageUrl;
+        if (detailUrl != null) this.detailUrl = detailUrl;
     }
 
 

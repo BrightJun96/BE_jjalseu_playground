@@ -39,6 +39,12 @@ public class QuizController {
         return Response.ok(quizService.getQuizByDetailUrl(detailUrl));
     }
 
+    // 퀴즈 해설 조회
+    @GetMapping("explanation/{detailUrl}")
+    public Response<String> getExplanation(@PathVariable String detailUrl) {
+        return Response.ok(quizService.getExplanation(detailUrl));
+    }
+
 
     // 퀴즈목록 - Pk 목록만 반환
     @GetMapping("list-pk")

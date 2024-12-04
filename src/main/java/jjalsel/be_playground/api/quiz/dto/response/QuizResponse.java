@@ -47,7 +47,7 @@ public class QuizResponse {
     private int time;
 
     // 객관식 답안 정보
-    private List<MultipleChoiceResponse> multipleChoices;
+    private List<MultipleChoiceResponse> multipleChoiceContents;
 
     // 생성일
     private String createdAt;
@@ -82,7 +82,7 @@ public class QuizResponse {
                 .field(quizEntity.getField())
                 .lang(quizEntity.getLang())
                 .time(quizEntity.getTime())
-                .multipleChoices(multipleChoices)
+                .multipleChoiceContents(multipleChoices)
                 .createdAt(quizEntity.getCreatedDate().toString())
                 .updatedAt(quizEntity.getUpdatedDate().toString())
                 .metaTitle(quizEntity.getMetaTitle())
